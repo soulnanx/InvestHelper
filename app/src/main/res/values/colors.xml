@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="primary">#2a92bc</color>
+    <color name="inverse">#2a8aba</color>
+    <color name="primary_dark">#FEFEFE</color>
+    <color name="accent">#0010B2</color>
+    <drawable name="list_selector">#FEFEFE</drawable>
+
+    <color name="negative_value">#a7a7a7</color>
+    <color name="positive_value">#2a92bc</color>
+
+    <color name="strong_gray">#595959</color>
+    <color name="light_gray">#e8e8e8</color>
+    <color name="float_button_default">#1E88E5</color>
+
+    <color name="tab_selected">#24688c</color>
+</resources>

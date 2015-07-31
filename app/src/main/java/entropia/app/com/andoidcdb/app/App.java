@@ -2,6 +2,7 @@ package entropia.app.com.andoidcdb.app;
 
 import android.app.Application;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import entropia.app.com.andoidcdb.pojo.Balance;
 public class App extends Application {
 
     public List<Balance> balanceList;
+    public BigDecimal totalBalance;
 
     @Override
     public void onCreate() {

@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">AndoidCDB</string>
+    <string name="app_name">Invest</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="average_gain_fragment">Média</string>
+    <string name="average_gain_fragment">Rendimentos diários</string>
+    <string name="controls_fragment">Controles</string>
 </resources>

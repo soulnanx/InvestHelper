@@ -10,6 +10,8 @@ import android.widget.TextView;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import entropia.app.com.andoidcdb.R;
@@ -49,9 +51,19 @@ public class BalanceAdapter extends ArrayAdapter<Balance> {
 
         holder.date.setText(fmt.print(item.getDate()));
         holder.gain.setText(MoneyUtils.showAsMoney(item.getGain()));
-        holder.balance.setText(MoneyUtils.showAsMoney(item.getBalance()));
+        holder.balance.setText(getPercent(item.getGain(), item.getBalance()));
 
         return convertView;
+    }
+
+    private String getPercent(BigDecimal gain, BigDecimal balance){
+        BigDecimal result = gain.multiply(new BigDecimal("100"));
+
+        if (result.equals(BigDecimal.ZERO) || balance.equals(BigDecimal.ZERO)){
+            return "0%";
+        } else {
+            return result.divide(balance, 3, RoundingMode.HALF_UP).toString() + "%";
+        }
     }
 
     class Holder {

@@ -11,6 +11,8 @@ import android.widget.TextView;
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import entropia.app.com.andoidcdb.R;
@@ -19,6 +21,7 @@ import entropia.app.com.andoidcdb.app.App;
 import entropia.app.com.andoidcdb.pojo.Balance;
 import entropia.app.com.andoidcdb.pojo.Sms;
 import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
+import entropia.app.com.andoidcdb.utils.MoneyUtils;
 import entropia.app.com.andoidcdb.utils.SMSReader;
 
 
@@ -34,7 +37,7 @@ public class AverageGainFragment extends Fragment {
     private View view;
     private App app;
     private UIHelper ui;
-    private List<Sms> list;
+    private List<Sms> smsList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,11 +48,19 @@ public class AverageGainFragment extends Fragment {
     }
 
     private void init() {
-        ((DrawerLayoutMain) getActivity()).getSupportActionBar().setTitle(R.string.average_gain_fragment);
+        setTitle();
         app = (App) getActivity().getApplication();
         ui = new UIHelper(view);
-        list = new SMSReader().getAllSms(this.getActivity(), SMSReader.BRADESCO_ADDRESS);
+        smsList = new SMSReader().getAllSms(this.getActivity(), SMSReader.BRADESCO_ADDRESS);
         calculateValues();
+    }
+
+    private void setTitle(){
+        ((DrawerLayoutMain) getActivity()).getSupportActionBar().setTitle(R.string.average_gain_fragment);
+    }
+
+    private void setSubTitle(String subTitle){
+        ((DrawerLayoutMain) getActivity()).getSupportActionBar().setSubtitle(subTitle);
     }
 
     private void setList() {
@@ -58,7 +69,8 @@ public class AverageGainFragment extends Fragment {
 
     private void calculateValues(){
         BigDecimal anterior = BigDecimal.ZERO;
-        for (Sms sms : list){
+        Collections.reverse(smsList);
+        for (Sms sms : new LinkedList<>(smsList)){
             sms.getAddress();
             sms.getTime();
 
@@ -73,11 +85,13 @@ public class AverageGainFragment extends Fragment {
                 BigDecimal gain = anterior.subtract(balance);
                 anterior = balance;
 
-                app.balanceList.add(new Balance(dateTime, balance, gain));
+                app.balanceList.add(new Balance(dateTime, balance, gain.multiply(BigDecimal.ONE.negate())));
             }
         }
-
+        Collections.reverse(app.balanceList);
+        app.totalBalance = app.balanceList.get(0).getBalance();
         setList();
+        setSubTitle(MoneyUtils.showAsMoney(app.totalBalance));
     }
 
     class UIHelper {

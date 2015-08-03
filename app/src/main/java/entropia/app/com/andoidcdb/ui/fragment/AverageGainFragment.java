@@ -24,7 +24,7 @@ import entropia.app.com.andoidcdb.utils.SMSReader;
 public class AverageGainFragment extends Fragment {
 
     public static final int NAME_ITEM = R.string.average_gain_fragment;
-    public static final int ICON_ITEM = R.drawable.ic_my_cards_menu;
+    public static final int ICON_ITEM = R.drawable.ic_my_cards_menu_;
     public static final boolean IS_CARD_REQUIRED = false;
 
     private View view;

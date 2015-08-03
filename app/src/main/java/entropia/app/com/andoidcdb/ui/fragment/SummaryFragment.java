@@ -25,7 +25,7 @@ import entropia.app.com.andoidcdb.utils.MoneyUtils;
 public class SummaryFragment extends Fragment {
 
     public static final int NAME_ITEM = R.string.summary_fragment;
-    public static final int ICON_ITEM = R.drawable.ic_my_cards_menu;
+    public static final int ICON_ITEM = R.drawable.ic_my_cards_menu_;
 
     private View view;
     private App app;

@@ -12,15 +12,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="12dp"
-            android:src="@android:drawable/ic_dialog_info" />
+            android:padding="8dp"
+            android:src="@drawable/ic_my_cards_menu_" />
 
         <TextView
             android:id="@+id/item_txt_name"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:paddingLeft="12dp"
-            android:textColor="@color/primary"
+            android:textColor="@color/strong_gray"
             android:text="Travel"/>
 
 

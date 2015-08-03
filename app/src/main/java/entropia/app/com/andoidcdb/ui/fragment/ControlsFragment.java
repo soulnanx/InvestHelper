@@ -19,7 +19,7 @@ import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
 public class ControlsFragment extends Fragment {
 
     public static final int NAME_ITEM = R.string.controls_fragment;
-    public static final int ICON_ITEM = R.drawable.ic_my_cards_menu;
+    public static final int ICON_ITEM = R.drawable.ic_my_cards_menu_;
     public static final boolean IS_CARD_REQUIRED = false;
 
     private View view;

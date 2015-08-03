@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="6dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -16,12 +16,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="12dp">
 
                 <LinearLayout
                     android:id="@+id/content_contribution"
@@ -36,7 +36,7 @@
                         android:gravity="center_horizontal"
                         android:text="Aplicado"
                         android:textColor="@color/strong_gray"
-                        android:textSize="14sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/fragment_summary_total_balance"
@@ -65,7 +65,7 @@
                         android:gravity="center_horizontal"
                         android:text="Rendimento"
                         android:textColor="@color/strong_gray"
-                        android:textSize="14sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/fragment_summary_total_gain"
@@ -94,7 +94,7 @@
                         android:gravity="center_horizontal"
                         android:text="Percentual"
                         android:textColor="@color/strong_gray"
-                        android:textSize="14sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/fragment_summary_total_percent"
@@ -113,14 +113,15 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:background="@color/strong_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -129,7 +130,7 @@
                     android:gravity="center_horizontal"
                     android:text="Ultimo Rendimento"
                     android:textColor="@color/strong_gray"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
                 <include
                     android:id="@+id/item_balance"

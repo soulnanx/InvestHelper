@@ -2,7 +2,7 @@
     <string name="app_name">Invest</string>
 
     <string name="action_settings">Settings</string>
-    <string name="average_gain_fragment">RENDIMENTOS DIÁRIOS</string>
-    <string name="controls_fragment">CONTROLES</string>
-    <string name="summary_fragment">RESUMO</string>
+    <string name="average_gain_fragment">Rendimentos diários</string>
+    <string name="controls_fragment">Controles</string>
+    <string name="summary_fragment">Resumo</string>
 </resources>

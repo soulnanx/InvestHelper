@@ -6,19 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import org.joda.time.DateTime;
-
-import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.adapter.BalanceAdapter;
 import entropia.app.com.andoidcdb.app.App;
-import entropia.app.com.andoidcdb.pojo.Balance;
 import entropia.app.com.andoidcdb.pojo.Sms;
 import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
 import entropia.app.com.andoidcdb.utils.MoneyUtils;
@@ -48,11 +41,12 @@ public class AverageGainFragment extends Fragment {
     }
 
     private void init() {
-        setTitle();
         app = (App) getActivity().getApplication();
+        setTitle();
+        setSubTitle(MoneyUtils.showAsMoney(app.totalBalance));
         ui = new UIHelper(view);
         smsList = new SMSReader().getAllSms(this.getActivity(), SMSReader.BRADESCO_ADDRESS);
-        calculateValues();
+        setList();
     }
 
     private void setTitle(){
@@ -67,39 +61,11 @@ public class AverageGainFragment extends Fragment {
         ui.balanceListView.setAdapter(new BalanceAdapter(this.getActivity(), R.layout.item_gain, app.balanceList));
     }
 
-    private void calculateValues(){
-        BigDecimal anterior = BigDecimal.ZERO;
-        Collections.reverse(smsList);
-        for (Sms sms : new LinkedList<>(smsList)){
-            sms.getAddress();
-            sms.getTime();
-
-            if (sms.getMsg().contains(SMSReader.FILTER_BY_INV)){
-                DateTime dateTime = new DateTime(Long.parseLong(sms.getTime()));
-                String msg1 = sms.getMsg().replaceAll("((.*?)(BX ))", "");
-                msg1 = msg1.substring(0, msg1.length() - 1);
-                msg1 = msg1.replace(".", "");
-                msg1 = msg1.replace(",", ".");
-
-                BigDecimal balance = new BigDecimal(msg1);
-                BigDecimal gain = anterior.subtract(balance);
-                anterior = balance;
-
-                app.balanceList.add(new Balance(dateTime, balance, gain.multiply(BigDecimal.ONE.negate())));
-            }
-        }
-        Collections.reverse(app.balanceList);
-        app.totalBalance = app.balanceList.get(0).getBalance();
-        setList();
-        setSubTitle(MoneyUtils.showAsMoney(app.totalBalance));
-    }
 
     class UIHelper {
-        TextView totalBalance;
         ListView balanceListView;
 
         UIHelper(View v){
-            totalBalance = (TextView) v.findViewById(R.id.totalBalance);
             balanceListView =  (ListView) v.findViewById(R.id.balance_list);
         }
     }

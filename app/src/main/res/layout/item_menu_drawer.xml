@@ -20,6 +20,7 @@
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:paddingLeft="12dp"
+            android:textColor="@color/primary"
             android:text="Travel"/>
 
 

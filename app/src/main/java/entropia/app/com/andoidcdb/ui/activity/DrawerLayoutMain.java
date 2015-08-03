@@ -22,6 +22,7 @@ import entropia.app.com.andoidcdb.adapter.MenuAdapter;
 import entropia.app.com.andoidcdb.app.App;
 import entropia.app.com.andoidcdb.pojo.ItemMenu;
 import entropia.app.com.andoidcdb.ui.fragment.AverageGainFragment;
+import entropia.app.com.andoidcdb.ui.fragment.SummaryFragment;
 
 public class DrawerLayoutMain extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
@@ -70,8 +71,8 @@ public class DrawerLayoutMain extends ActionBarActivity {
 
         if (savedInstanceState == null) {
             mListView.setItemChecked(0, true);
-            selectItem(AverageGainFragment.class.getName());
-            getSupportActionBar().setTitle(R.string.average_gain_fragment);
+            selectItem(SummaryFragment.class.getName());
+            getSupportActionBar().setTitle(R.string.summary_fragment);
         }
     }
 

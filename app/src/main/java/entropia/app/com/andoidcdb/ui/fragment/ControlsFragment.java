@@ -8,18 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.joda.time.DateTime;
-
-import java.math.BigDecimal;
-import java.util.List;
-
 import entropia.app.com.andoidcdb.R;
-import entropia.app.com.andoidcdb.adapter.BalanceAdapter;
 import entropia.app.com.andoidcdb.app.App;
-import entropia.app.com.andoidcdb.pojo.Balance;
-import entropia.app.com.andoidcdb.pojo.Sms;
 import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
-import entropia.app.com.andoidcdb.utils.SMSReader;
 
 
 /**

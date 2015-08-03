@@ -16,7 +16,7 @@ import java.util.List;
 
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.app.App;
-import entropia.app.com.andoidcdb.pojo.Balance;
+import entropia.app.com.andoidcdb.entity.Balance;
 import entropia.app.com.andoidcdb.utils.MoneyUtils;
 
 /**
@@ -51,20 +51,20 @@ public class BalanceAdapter extends ArrayAdapter<Balance> {
 
         holder.date.setText(fmt.print(item.getDate()));
         holder.gain.setText(MoneyUtils.showAsMoney(item.getGain()));
-        holder.balance.setText(getPercent(item.getGain(), item.getBalance()));
+        holder.balance.setText(item.calculatePercent());
 
         return convertView;
     }
 
-    private String getPercent(BigDecimal gain, BigDecimal balance){
-        BigDecimal result = gain.multiply(new BigDecimal("100"));
-
-        if (result.equals(BigDecimal.ZERO) || balance.equals(BigDecimal.ZERO)){
-            return "0%";
-        } else {
-            return result.divide(balance, 3, RoundingMode.HALF_UP).toString() + "%";
-        }
-    }
+//    private String getPercent(BigDecimal gain, BigDecimal balance){
+//        BigDecimal result = gain.multiply(new BigDecimal("100"));
+//
+//        if (result.equals(BigDecimal.ZERO) || balance.equals(BigDecimal.ZERO)){
+//            return "0%";
+//        } else {
+//            return result.divide(balance, 3, RoundingMode.HALF_UP).toString() + "%";
+//        }
+//    }
 
     class Holder {
         TextView date;
@@ -72,9 +72,9 @@ public class BalanceAdapter extends ArrayAdapter<Balance> {
         TextView balance;
 
         public Holder(View v) {
-            date = (TextView) v.findViewById(R.id.item_gain_date);
-            gain = (TextView) v.findViewById(R.id.item_gain_gain);
-            balance = (TextView) v.findViewById(R.id.item_gain_balance);
+            date = (TextView) v.findViewById(R.id.item_balance_date);
+            gain = (TextView) v.findViewById(R.id.item_balance_gain);
+            balance = (TextView) v.findViewById(R.id.item_balance_percent);
         }
 
     }

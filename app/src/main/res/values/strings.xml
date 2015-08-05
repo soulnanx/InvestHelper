@@ -5,4 +5,10 @@
     <string name="average_gain_fragment">Rendimentos diários</string>
     <string name="controls_fragment">Controles</string>
     <string name="summary_fragment">Resumo</string>
+    <string name="fragment_control_title_contribution">Aporte</string>
+    <string name="fragment_control_title_sms">Sms</string>
+    <string name="fragment_control_item_initial_contribution">Aporte inicial</string>
+    <string name="fragment_control_item_others_contributions">Outros aportes</string>
+    <string name="fragment_control_item_sms_read">Notificar sms</string>
+    <string name="fragment_control_item_sms">Notificar quando receber sms com dados sobre os investimentos</string>
 </resources>

@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.dacer.androidcharts.LineView;
+
 import org.joda.time.format.DateTimeFormat;
 
 import java.math.BigDecimal;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.app.App;
@@ -30,12 +32,56 @@ public class SummaryFragment extends Fragment {
     private View view;
     private App app;
     private UIHelper ui;
+    private int randomint = 9;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_summary, container, false);
         init();
+        initGraph();
         return view;
+    }
+
+    private void initGraph() {
+        LineView lineView = (LineView)view.findViewById(R.id.line_view);
+        lineView.setDrawDotLine(false); //optional
+        lineView.setAnimation(null);
+        lineView.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
+        ArrayList<String> test = new ArrayList<String>();
+        for (int i=0; i<randomint; i++){
+            test.add(String.valueOf(i+1));
+        }
+        lineView.setBottomTextList(test);
+
+        randomSet(lineView);
+
+    }
+
+    private void randomSet(LineView lineView){
+        ArrayList<Integer> dataList = new ArrayList<Integer>();
+        int random = (int)(Math.random()*9+1);
+        for (int i=0; i<randomint; i++){
+            dataList.add((int)(Math.random()*random));
+        }
+
+        ArrayList<Integer> dataList2 = new ArrayList<Integer>();
+        random = (int)(Math.random()*9+1);
+        for (int i=0; i<randomint; i++){
+            dataList2.add((int)(Math.random()*random));
+        }
+
+        ArrayList<Integer> dataList3 = new ArrayList<Integer>();
+        random = (int)(Math.random()*9+1);
+        for (int i=0; i<randomint; i++){
+            dataList3.add((int)(Math.random()*random));
+        }
+
+        ArrayList<ArrayList<Integer>> dataLists = new ArrayList<ArrayList<Integer>>();
+        dataLists.add(dataList);
+        dataLists.add(dataList2);
+//        dataLists.add(dataList3);
+
+        lineView.setDataList(dataLists);
     }
 
     private void init() {
@@ -47,10 +93,11 @@ public class SummaryFragment extends Fragment {
 
     private void setValues() {
         Balance lastBalance = Balance.getCurrentBalance();
-
-        ui.totalBalance.setText(MoneyUtils.showAsMoney(lastBalance.getBalance()));
-
         BigDecimal totalGain = lastBalance.calculateTotalGain(new BigDecimal("200000.00"));
+
+        ui.totalBalance.setText(MoneyUtils.showAsMoney(lastBalance.getBalance().subtract(totalGain)));
+
+
         ui.totalGain.setText(MoneyUtils.showAsMoney(totalGain));
         ui.totalPercent.setText(lastBalance.calculateTotalPercent(totalGain));
 

@@ -31,5 +31,6 @@ dependencies {
     compile 'joda-time:joda-time:2.7'
     compile 'com.codeslap:persistence:0.9.24'
     compile 'com.android.support:cardview-v7:22.+'
-    compile 'com.github.HackPlan:AndroidCharts:195635f8ee'
+//    compile 'com.github.HackPlan:AndroidCharts:195635f8ee'
+    compile 'com.diogobernardino:williamchart:2.0.1'
 }

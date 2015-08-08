@@ -10,8 +10,6 @@ import android.widget.TextView;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 import entropia.app.com.andoidcdb.R;
@@ -73,7 +71,7 @@ public class BalanceAdapter extends ArrayAdapter<Balance> {
 
         public Holder(View v) {
             date = (TextView) v.findViewById(R.id.item_balance_date);
-            gain = (TextView) v.findViewById(R.id.item_balance_gain);
+            gain = (TextView) v.findViewById(R.id.item_total_balance);
             balance = (TextView) v.findViewById(R.id.item_balance_percent);
         }
 

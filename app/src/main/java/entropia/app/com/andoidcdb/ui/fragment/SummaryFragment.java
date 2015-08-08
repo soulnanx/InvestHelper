@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.dacer.androidcharts.LineView;
 
 import org.joda.time.format.DateTimeFormat;
 
@@ -17,6 +16,7 @@ import java.util.ArrayList;
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.app.App;
 import entropia.app.com.andoidcdb.entity.Balance;
+import entropia.app.com.andoidcdb.ui.LineView;
 import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
 import entropia.app.com.andoidcdb.utils.MoneyUtils;
 
@@ -44,42 +44,18 @@ public class SummaryFragment extends Fragment {
 
     private void initGraph() {
         LineView lineView = (LineView)view.findViewById(R.id.line_view);
-        lineView.setDrawDotLine(false); //optional
+        lineView.setDrawDotLine(true); //optional
         lineView.setAnimation(null);
         lineView.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
-        ArrayList<String> test = new ArrayList<String>();
-        for (int i=0; i<randomint; i++){
-            test.add(String.valueOf(i+1));
-        }
-        lineView.setBottomTextList(test);
-
-        randomSet(lineView);
-
+//        lineView.setBottomTextList(Balance.getLastDaysBottomChart(10));
+        lineView.setBottomTextList(Balance.getBottomValues());
+        setLine(lineView);
     }
 
-    private void randomSet(LineView lineView){
-        ArrayList<Integer> dataList = new ArrayList<Integer>();
-        int random = (int)(Math.random()*9+1);
-        for (int i=0; i<randomint; i++){
-            dataList.add((int)(Math.random()*random));
-        }
-
-        ArrayList<Integer> dataList2 = new ArrayList<Integer>();
-        random = (int)(Math.random()*9+1);
-        for (int i=0; i<randomint; i++){
-            dataList2.add((int)(Math.random()*random));
-        }
-
-        ArrayList<Integer> dataList3 = new ArrayList<Integer>();
-        random = (int)(Math.random()*9+1);
-        for (int i=0; i<randomint; i++){
-            dataList3.add((int)(Math.random()*random));
-        }
-
-        ArrayList<ArrayList<Integer>> dataLists = new ArrayList<ArrayList<Integer>>();
-        dataLists.add(dataList);
-        dataLists.add(dataList2);
-//        dataLists.add(dataList3);
+    private void setLine(LineView lineView){
+        ArrayList<ArrayList<Double>> dataLists = new ArrayList<>();
+//        dataLists.add(Balance.getLastDays(10));
+        dataLists.add(Balance.getChartValues());
 
         lineView.setDataList(dataLists);
     }
@@ -96,33 +72,45 @@ public class SummaryFragment extends Fragment {
         BigDecimal totalGain = lastBalance.calculateTotalGain(new BigDecimal("200000.00"));
 
         ui.totalBalance.setText(MoneyUtils.showAsMoney(lastBalance.getBalance().subtract(totalGain)));
+        ui.totalBalancePlusGain.setText(MoneyUtils.showAsMoney(lastBalance.getBalance()));
 
+        ui.itemTotalDate.setText(DateTimeFormat.forPattern("dd/MM/yyyy").print(lastBalance.getDate()));
+        ui.itemTotalGain.setText(MoneyUtils.showAsMoney(totalGain));
+        ui.itemTotalGain.setTextColor(getResources().getColor(R.color.strong_gray));
 
-        ui.totalGain.setText(MoneyUtils.showAsMoney(totalGain));
-        ui.totalPercent.setText(lastBalance.calculateTotalPercent(totalGain));
+        ui.itemTotalPercent.setText(lastBalance.calculateTotalPercent(totalGain));
+        ui.itemTotalPercent.setTextColor(getResources().getColor(R.color.strong_gray));
 
-        ui.itemDate.setText(DateTimeFormat.forPattern("dd/MM/yyyy").print(lastBalance.getDate()));
-        ui.itemPercent.setText(lastBalance.calculatePercent());
-        ui.itemGain.setText(MoneyUtils.showAsMoney(lastBalance.getGain()));
+        ui.itemLastDate.setText(DateTimeFormat.forPattern("dd/MM/yyyy").print(lastBalance.getDate()));
+        ui.itemLastPercent.setText(lastBalance.calculatePercent());
+        ui.itemLastGain.setText(MoneyUtils.showAsMoney(lastBalance.getGain()));
     }
 
     class UIHelper {
         TextView totalBalance;
-        TextView totalGain;
-        TextView totalPercent;
+        TextView totalBalancePlusGain;
 
-        TextView itemDate;
-        TextView itemPercent;
-        TextView itemGain;
+        TextView itemLastDate;
+        TextView itemLastPercent;
+        TextView itemLastGain;
+
+        TextView itemTotalDate;
+        TextView itemTotalPercent;
+        TextView itemTotalGain;
 
         UIHelper(View v){
             totalBalance = (TextView) v.findViewById(R.id.fragment_summary_total_balance);
-            totalGain = (TextView) v.findViewById(R.id.fragment_summary_total_gain);
-            totalPercent = (TextView) v.findViewById(R.id.fragment_summary_total_percent);
+            totalBalancePlusGain = (TextView) v.findViewById(R.id.fragment_summary_total_balance_plus_gain);
 
-            itemDate = (TextView) v.findViewById(R.id.item_balance_date);
-            itemPercent = (TextView) v.findViewById(R.id.item_balance_percent);
-            itemGain = (TextView) v.findViewById(R.id.item_balance_gain);
+            View contentLast = v.findViewById(R.id.item_content_last_balance);
+            itemLastDate = (TextView) contentLast.findViewById(R.id.item_balance_date);
+            itemLastPercent = (TextView) contentLast.findViewById(R.id.item_balance_percent);
+            itemLastGain = (TextView) contentLast.findViewById(R.id.item_total_balance);
+
+            View contentTotal = v.findViewById(R.id.item_content_total_balance);
+            itemTotalDate = (TextView) contentTotal.findViewById(R.id.item_balance_date);
+            itemTotalPercent = (TextView) contentTotal.findViewById(R.id.item_balance_percent);
+            itemTotalGain = (TextView) contentTotal.findViewById(R.id.item_total_balance);
         }
     }
 }

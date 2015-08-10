@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.app.App;
 import entropia.app.com.andoidcdb.entity.Balance;
-import entropia.app.com.andoidcdb.ui.LineView;
+import entropia.app.com.andoidcdb.ui.chart.LineView;
 import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
 import entropia.app.com.andoidcdb.utils.MoneyUtils;
 

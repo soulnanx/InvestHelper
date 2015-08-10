@@ -181,7 +181,7 @@
 
                         <view
                             android:id="@+id/line_view"
-                            class="entropia.app.com.andoidcdb.ui.LineView"
+                            class="entropia.app.com.andoidcdb.ui.chart.LineView"
                             android:layout_width="wrap_content"
                             android:layout_height="200dp" />
                     </HorizontalScrollView>

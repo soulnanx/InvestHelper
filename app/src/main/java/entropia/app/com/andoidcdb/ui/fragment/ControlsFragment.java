@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.app.App;
+import entropia.app.com.andoidcdb.callback.CallbackDialog;
 import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
 
 
@@ -37,15 +38,42 @@ public class ControlsFragment extends Fragment {
         ((DrawerLayoutMain) getActivity()).getSupportActionBar().setTitle(R.string.controls_fragment);
         app = (App) getActivity().getApplication();
         ui = new UIHelper(view);
+        setEvents();
+    }
+
+    private void setEvents() {
+        ui.totalBalance.setOnClickListener(onClickTotalBanlance());
+    }
+
+    private View.OnClickListener onClickTotalBanlance() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogInitialContribution.show(ControlsFragment.this.getFragmentManager(), callbackDialogInitialContribution());
+            }
+        };
+    }
+
+    private CallbackDialog callbackDialogInitialContribution() {
+        return new CallbackDialog() {
+            @Override
+            public void positive() {
+
+            }
+
+            @Override
+            public void negative() {
+
+            }
+        };
     }
 
     class UIHelper {
-        TextView totalBalance;
+        View totalBalance;
         ListView balanceListView;
 
         UIHelper(View v){
-            totalBalance = (TextView) v.findViewById(R.id.totalBalance);
-            balanceListView =  (ListView) v.findViewById(R.id.balance_list);
+            totalBalance = v.findViewById(R.id.totalBalance);
         }
     }
 }

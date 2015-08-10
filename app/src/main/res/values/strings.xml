@@ -11,4 +11,8 @@
     <string name="fragment_control_item_others_contributions">Outros aportes</string>
     <string name="fragment_control_item_sms_read">Notificar sms</string>
     <string name="fragment_control_item_sms">Notificar quando receber sms com dados sobre os investimentos</string>
+    <string name="dialog_initial_contribution_title" />
+    <string name="cancel">CANCELAR</string>
+    <string name="ok">OK</string>
+    <string name="dialog_initial_contribution">Controles</string>
 </resources>

@@ -20,8 +20,10 @@ import android.widget.ListView;
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.adapter.MenuAdapter;
 import entropia.app.com.andoidcdb.app.App;
+import entropia.app.com.andoidcdb.entity.Control;
 import entropia.app.com.andoidcdb.pojo.ItemMenu;
 import entropia.app.com.andoidcdb.ui.fragment.AverageGainFragment;
+import entropia.app.com.andoidcdb.ui.fragment.ControlsFragment;
 import entropia.app.com.andoidcdb.ui.fragment.SummaryFragment;
 
 public class DrawerLayoutMain extends ActionBarActivity {
@@ -70,9 +72,15 @@ public class DrawerLayoutMain extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if (savedInstanceState == null) {
-            mListView.setItemChecked(0, true);
-            selectItem(SummaryFragment.class.getName());
-            getSupportActionBar().setTitle(R.string.summary_fragment);
+            if (Control.getControl() != null){
+                mListView.setItemChecked(0, true);
+                selectItem(SummaryFragment.class.getName());
+                getSupportActionBar().setTitle(R.string.summary_fragment);
+            } else {
+                mListView.setItemChecked(2, true);
+                selectItem(ControlsFragment.class.getName());
+                getSupportActionBar().setTitle(R.string.controls_fragment);
+            }
         }
     }
 

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.app.App;
 import entropia.app.com.andoidcdb.entity.Balance;
+import entropia.app.com.andoidcdb.entity.Control;
 import entropia.app.com.andoidcdb.ui.chart.LineView;
 import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
 import entropia.app.com.andoidcdb.utils.MoneyUtils;
@@ -32,14 +33,19 @@ public class SummaryFragment extends Fragment {
     private View view;
     private App app;
     private UIHelper ui;
-    private int randomint = 9;
+    private Control control;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_summary, container, false);
+        loadValues();
         init();
         initGraph();
         return view;
+    }
+
+    private void loadValues() {
+        control = Control.getControl();
     }
 
     private void initGraph() {
@@ -69,7 +75,7 @@ public class SummaryFragment extends Fragment {
 
     private void setValues() {
         Balance lastBalance = Balance.getCurrentBalance();
-        BigDecimal totalGain = lastBalance.calculateTotalGain(new BigDecimal("200000.00"));
+        BigDecimal totalGain = lastBalance.calculateTotalGain(control.getInitialContribution());
 
         ui.totalBalance.setText(MoneyUtils.showAsMoney(lastBalance.getBalance().subtract(totalGain)));
         ui.totalBalancePlusGain.setText(MoneyUtils.showAsMoney(lastBalance.getBalance()));

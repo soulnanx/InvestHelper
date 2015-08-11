@@ -2,6 +2,7 @@ package entropia.app.com.andoidcdb.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.app.App;
 import entropia.app.com.andoidcdb.callback.CallbackDialog;
+import entropia.app.com.andoidcdb.entity.Control;
 import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
+import entropia.app.com.andoidcdb.utils.MoneyUtils;
 
 
 /**
@@ -26,12 +29,18 @@ public class ControlsFragment extends Fragment {
     private View view;
     private App app;
     private UIHelper ui;
+    private Control control;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_control, container, false);
+        loadValues();
         init();
         return view;
+    }
+
+    private void loadValues() {
+        control = Control.getControl();
     }
 
     private void init() {
@@ -39,10 +48,15 @@ public class ControlsFragment extends Fragment {
         app = (App) getActivity().getApplication();
         ui = new UIHelper(view);
         setEvents();
+        setValues();
+    }
+
+    private void setValues() {
+        ui.initialContribution.setText(MoneyUtils.showAsMoney(control.getInitialContribution()));
     }
 
     private void setEvents() {
-        ui.totalBalance.setOnClickListener(onClickTotalBanlance());
+        ui.contentInitialContribution.setOnClickListener(onClickTotalBanlance());
     }
 
     private View.OnClickListener onClickTotalBanlance() {
@@ -58,7 +72,8 @@ public class ControlsFragment extends Fragment {
         return new CallbackDialog() {
             @Override
             public void positive() {
-
+                loadValues();
+                setValues();
             }
 
             @Override
@@ -69,11 +84,12 @@ public class ControlsFragment extends Fragment {
     }
 
     class UIHelper {
-        View totalBalance;
-        ListView balanceListView;
+        TextView initialContribution;
+        View contentInitialContribution;
 
         UIHelper(View v){
-            totalBalance = v.findViewById(R.id.totalBalance);
+            contentInitialContribution = v.findViewById(R.id.fragment_control_content_initial_contribution);
+            initialContribution = (TextView)v.findViewById(R.id.fragment_control_initial_contribution);
         }
     }
 }

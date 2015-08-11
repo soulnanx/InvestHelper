@@ -16,6 +16,7 @@
         android:id="@+id/dialog_initial_contribution_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
         android:layout_marginBottom="4dp"/>
 
     <LinearLayout

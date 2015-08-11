@@ -6,10 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.Validator.ValidationListener;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 import entropia.app.com.andoidcdb.R;
-import entropia.app.com.andoidcdb.app.App;
 import entropia.app.com.andoidcdb.callback.CallbackDialog;
 import entropia.app.com.andoidcdb.entity.Control;
 
@@ -20,24 +27,32 @@ public class DialogInitialContribution extends android.support.v4.app.DialogFrag
 
     private UIHelper ui;
     private View view;
-    private App app;
     private CallbackDialog callback;
+    private Control control;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.dialog_initial_contribution, container);
+        loadValues();
         init();
         return view;
     }
 
+    private void loadValues() {
+        control = Control.getControl();
+    }
+
     private void init() {
-        app = (App) this.getActivity().getApplication();
         ui = new UIHelper();
         setEvents();
+        setValues();
         getDialog().setCanceledOnTouchOutside(false);
         setTitle();
     }
 
+    private void setValues() {
+        ui.initialContribution.setText(control.getInitialContribution().toString());
+    }
 
     private void setTitle() {
         getDialog().setTitle(R.string.dialog_initial_contribution);
@@ -52,23 +67,9 @@ public class DialogInitialContribution extends android.support.v4.app.DialogFrag
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (validate()){
-                    saveControl();
-                    callback.positive();
-                }
-                DialogInitialContribution.this.dismiss();
+                ui.validator.validate();
             }
         };
-    }
-
-    private boolean validate() {
-
-        if (ui.initialContribution.getText().toString().isEmpty()){
-            return false;
-        }
-
-        return true;
     }
 
     private View.OnClickListener onClickBtnCancel() {
@@ -90,14 +91,13 @@ public class DialogInitialContribution extends android.support.v4.app.DialogFrag
         return dialog;
     }
 
-
     private void saveControl() {
-       buildControl().saveOrUpdate();
+        buildControl().saveOrUpdate();
     }
 
     private Control buildControl() {
         Control control = new Control();
-        control.setInitialContribution(ui.initialContribution.getText().toString());
+        control.setInitialContribution(new BigDecimal(ui.initialContribution.getText().toString()));
         return control;
     }
 
@@ -105,8 +105,10 @@ public class DialogInitialContribution extends android.support.v4.app.DialogFrag
         this.callback = callback;
     }
 
-    private class UIHelper {
+    private class UIHelper implements ValidationListener {
+        private final Validator validator;
 
+        @NotEmpty(messageResId = R.string.dialog_error_mandatory)
         EditText initialContribution;
 
         View btnOK;
@@ -116,6 +118,32 @@ public class DialogInitialContribution extends android.support.v4.app.DialogFrag
             this.initialContribution = (EditText) view.findViewById(R.id.dialog_initial_contribution_value);
             this.btnOK = view.findViewById(R.id.dialog_initial_contribution_ok);
             this.btnCancel = view.findViewById(R.id.dialog_initial_contribution_cancel);
+
+            validator = new Validator(this);
+            validator.setValidationListener(this);
+        }
+
+
+        @Override
+        public void onValidationSucceeded() {
+            saveControl();
+            callback.positive();
+            DialogInitialContribution.this.dismiss();
+        }
+
+        @Override
+        public void onValidationFailed(List<ValidationError> errors) {
+            for (ValidationError error : errors) {
+                View view = error.getView();
+                String message = error.getCollatedErrorMessage(DialogInitialContribution.this.getActivity());
+
+                // Display error messages ;)
+                if (view instanceof EditText) {
+                    ((EditText) view).setError(message);
+                } else {
+                    Toast.makeText(DialogInitialContribution.this.getActivity(), message, Toast.LENGTH_LONG).show();
+                }
+            }
         }
     }
 }

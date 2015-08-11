@@ -1,5 +1,7 @@
 package entropia.app.com.andoidcdb.entity;
 
+import java.math.BigDecimal;
+
 import entropia.app.com.andoidcdb.db.DataBaseAdapter;
 
 /**
@@ -47,7 +49,7 @@ public class Control {
         }
     }
 
-    public Control getControl() {
+    public static Control getControl() {
         if (DataBaseAdapter.getInstance() != null) {
             Control c = new Control();
             c.setId(1);
@@ -66,12 +68,17 @@ public class Control {
         this.id = id;
     }
 
-    public String getInitialContribution() {
-        return initialContribution;
+    public BigDecimal getInitialContribution() {
+        if (initialContribution == null || initialContribution.isEmpty()){
+            return BigDecimal.ZERO;
+        } else {
+            return new BigDecimal(initialContribution);
+        }
+
     }
 
-    public void setInitialContribution(String initialContribution) {
-        this.initialContribution = initialContribution;
+    public void setInitialContribution(BigDecimal initialContribution) {
+        this.initialContribution = initialContribution.toString();
     }
 
     public long getDateFirstContribution() {

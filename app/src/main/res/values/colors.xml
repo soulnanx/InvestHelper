@@ -5,7 +5,6 @@
     <color name="inverse">#4e9be0</color>
     <color name="primary_dark">#FEFEFE</color>
     <color name="accent">#0010B2</color>
-    <drawable name="list_selector">#FEFEFE</drawable>
 
     <color name="negative_value">#a7a7a7</color>
     <color name="positive_value">#2a92bc</color>

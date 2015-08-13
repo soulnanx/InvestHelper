@@ -46,6 +46,10 @@ public class SummaryFragment extends Fragment {
 
     private void loadValues() {
         control = Control.getControl();
+
+        if (control == null){
+            control = new Control();
+        }
     }
 
     private void initGraph() {

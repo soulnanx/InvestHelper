@@ -123,6 +123,7 @@
                 </LinearLayout>
 
                 <Switch
+                    android:id="@+id/fragment_control_switch_receive_sms_notification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

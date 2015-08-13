@@ -1,18 +1,21 @@
 package entropia.app.com.andoidcdb.ui.fragment;
 
+import android.content.ComponentName;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.app.App;
 import entropia.app.com.andoidcdb.callback.CallbackDialog;
 import entropia.app.com.andoidcdb.entity.Control;
+import entropia.app.com.andoidcdb.receiver.SMSReceiver;
 import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
 import entropia.app.com.andoidcdb.utils.MoneyUtils;
 
@@ -30,6 +33,8 @@ public class ControlsFragment extends Fragment {
     private App app;
     private UIHelper ui;
     private Control control;
+    private PackageManager pm;
+    private ComponentName componentName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +46,13 @@ public class ControlsFragment extends Fragment {
 
     private void loadValues() {
         control = Control.getControl();
+
+        if (control == null){
+            control = new Control();
+        }
+
+        pm  = ControlsFragment.this.getActivity().getPackageManager();
+        componentName = new ComponentName(ControlsFragment.this.getActivity(), SMSReceiver.class);
     }
 
     private void init() {
@@ -52,11 +64,48 @@ public class ControlsFragment extends Fragment {
     }
 
     private void setValues() {
-        ui.initialContribution.setText(MoneyUtils.showAsMoney(control.getInitialContribution()));
+        setIntialContribution();
+        setSwitchValue();
+    }
+
+    private void setIntialContribution() {
+        if (control != null){
+            ui.initialContribution.setText(MoneyUtils.showAsMoney(control.getInitialContribution()));
+        } else {
+            ui.initialContribution.setText("0");
+        }
+    }
+
+    private void setSwitchValue() {
+        int enableCode = pm.getComponentEnabledSetting(componentName);
+
+        switch (enableCode){
+            case PackageManager.COMPONENT_ENABLED_STATE_ENABLED:
+                ui.receiveSMS.setChecked(true);
+                break;
+            case PackageManager.COMPONENT_ENABLED_STATE_DISABLED:
+                ui.receiveSMS.setChecked(false);
+                break;
+
+        }
     }
 
     private void setEvents() {
         ui.contentInitialContribution.setOnClickListener(onClickTotalBanlance());
+        ui.receiveSMS.setOnCheckedChangeListener(onSwitchReceiveSMS());
+    }
+
+    private CompoundButton.OnCheckedChangeListener onSwitchReceiveSMS() {
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    pm.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+                } else {
+                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+                }
+            }
+        };
     }
 
     private View.OnClickListener onClickTotalBanlance() {
@@ -86,10 +135,12 @@ public class ControlsFragment extends Fragment {
     class UIHelper {
         TextView initialContribution;
         View contentInitialContribution;
+        Switch receiveSMS;
 
         UIHelper(View v){
             contentInitialContribution = v.findViewById(R.id.fragment_control_content_initial_contribution);
             initialContribution = (TextView)v.findViewById(R.id.fragment_control_initial_contribution);
+            receiveSMS = (Switch) v.findViewById(R.id.fragment_control_switch_receive_sms_notification);
         }
     }
 }

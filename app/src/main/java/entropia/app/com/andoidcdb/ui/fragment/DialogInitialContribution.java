@@ -40,6 +40,10 @@ public class DialogInitialContribution extends android.support.v4.app.DialogFrag
 
     private void loadValues() {
         control = Control.getControl();
+
+        if (control == null){
+            control = new Control();
+        }
     }
 
     private void init() {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.ui.fragment.AverageGainFragment;
+import entropia.app.com.andoidcdb.ui.fragment.ContributionsFragment;
 import entropia.app.com.andoidcdb.ui.fragment.ControlsFragment;
 import entropia.app.com.andoidcdb.ui.fragment.SummaryFragment;
 
@@ -28,6 +29,7 @@ public class ItemMenu {
         ArrayList<ItemMenu> list = new ArrayList<ItemMenu>();
         list.add(new ItemMenu(SummaryFragment.class));
         list.add(new ItemMenu(AverageGainFragment.class));
+        list.add(new ItemMenu(ContributionsFragment.class));
         list.add(new ItemMenu(ControlsFragment.class));
 
         return list;

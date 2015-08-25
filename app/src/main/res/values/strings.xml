@@ -5,10 +5,22 @@
     <string name="average_gain_fragment">Rendimentos diários</string>
     <string name="controls_fragment">Controles</string>
     <string name="summary_fragment">Resumo</string>
+
+    <!-- TODO clear this item-->
     <string name="fragment_control_title_contribution">Aporte</string>
+    <string name="fragment_contributions_title_contribution">Aporte</string>
+
+
     <string name="fragment_control_title_sms">Sms</string>
+
+    <!-- TODO clear this item-->
     <string name="fragment_control_item_initial_contribution">Aporte inicial</string>
+    <string name="fragment_contributions_item_initial_contribution">Aporte inicial</string>
+
+    <!-- TODO clear this item-->
     <string name="fragment_control_item_others_contributions">Outros aportes</string>
+    <string name="fragment_contributions_item_others_contributions">Outros aportes</string>
+
     <string name="fragment_control_item_sms_read">Notificar sms</string>
     <string name="fragment_control_item_sms">Notificar quando receber sms com dados sobre os investimentos</string>
     <string name="dialog_initial_contribution_title" />
@@ -16,4 +28,13 @@
     <string name="ok">OK</string>
     <string name="dialog_initial_contribution">Controles</string>
     <string name="dialog_error_mandatory">Campo obrigatório</string>
+    <string name="contributions_fragment">Aportes</string>
+    <string name="push_notification_message">Novos dados sobre seus investimentos estão disponíveis</string>
+    <string name="dialog_other_contribution">Valor do aporte</string>
+    <string name="remove">REMOVER</string>
+    <string name="dialog_update">ATUALIZAR</string>
+    <string name="dialog_save">SALVAR</string>
+    <string name="menu_add">Adicionar</string>
+    <string name="dialog_title_other_contribution">Outros aportes</string>
+    <string name="dialog_contribution_date">data</string>
 </resources>

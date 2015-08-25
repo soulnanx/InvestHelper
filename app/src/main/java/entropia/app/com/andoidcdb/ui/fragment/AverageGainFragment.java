@@ -30,7 +30,6 @@ public class AverageGainFragment extends Fragment {
     private View view;
     private App app;
     private UIHelper ui;
-    private List<Sms> smsList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +44,6 @@ public class AverageGainFragment extends Fragment {
         setTitle();
         setSubTitle(MoneyUtils.showAsMoney(app.totalBalance));
         ui = new UIHelper(view);
-        smsList = new SMSReader().getAllSms(this.getActivity(), SMSReader.BRADESCO_ADDRESS);
         setList();
     }
 

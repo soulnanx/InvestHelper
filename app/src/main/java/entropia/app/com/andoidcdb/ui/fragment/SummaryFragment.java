@@ -31,7 +31,6 @@ public class SummaryFragment extends Fragment {
     public static final int ICON_ITEM = R.drawable.ic_my_cards_menu_;
 
     private View view;
-    private App app;
     private UIHelper ui;
     private Control control;
 
@@ -72,7 +71,6 @@ public class SummaryFragment extends Fragment {
 
     private void init() {
         ((DrawerLayoutMain) getActivity()).getSupportActionBar().setTitle(NAME_ITEM);
-        app = (App) getActivity().getApplication();
         ui = new UIHelper(view);
         setValues();
     }

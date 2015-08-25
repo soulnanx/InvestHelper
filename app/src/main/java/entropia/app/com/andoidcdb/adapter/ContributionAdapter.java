@@ -13,18 +13,17 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.List;
 
 import entropia.app.com.andoidcdb.R;
-import entropia.app.com.andoidcdb.app.App;
-import entropia.app.com.andoidcdb.entity.Balance;
+import entropia.app.com.andoidcdb.entity.Contribution;
 import entropia.app.com.andoidcdb.utils.MoneyUtils;
 
 /**
  * Created by renan on 17/05/15.
  */
-public class BalanceAdapter extends ArrayAdapter<Balance> {
+public class ContributionAdapter extends ArrayAdapter<Contribution> {
 
     private int resource;
 
-    public BalanceAdapter(Context context, int resource, List<Balance> objects) {
+    public ContributionAdapter(Context context, int resource, List<Contribution> objects) {
         super(context, resource, objects);
         this.resource = resource;
     }
@@ -32,7 +31,7 @@ public class BalanceAdapter extends ArrayAdapter<Balance> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
-        Balance item = getItem(position);
+        Contribution item = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(resource, null);
@@ -44,32 +43,26 @@ public class BalanceAdapter extends ArrayAdapter<Balance> {
 
         DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
 
-        holder.date.setText(fmt.print(item.getDate()));
-        holder.gain.setText(MoneyUtils.showAsMoney(item.getGain()));
-        holder.balance.setText(item.calculatePercent());
+        holder.date.setText(fmt.print(item.getDateContribution()));
+        holder.value.setText(MoneyUtils.showAsMoney(item.getContribution()));
+        holder.days.setText(calculateDays());
 
         return convertView;
     }
 
-//    private String getPercent(BigDecimal value, BigDecimal balance){
-//        BigDecimal result = value.multiply(new BigDecimal("100"));
-//
-//        if (result.equals(BigDecimal.ZERO) || balance.equals(BigDecimal.ZERO)){
-//            return "0%";
-//        } else {
-//            return result.divide(balance, 3, RoundingMode.HALF_UP).toString() + "%";
-//        }
-//    }
+    private String calculateDays() {
+        return "20";
+    }
 
     class Holder {
         TextView date;
-        TextView gain;
-        TextView balance;
+        TextView value;
+        TextView days;
 
         public Holder(View v) {
-            date = (TextView) v.findViewById(R.id.item_balance_date);
-            gain = (TextView) v.findViewById(R.id.item_total_balance);
-            balance = (TextView) v.findViewById(R.id.item_balance_percent);
+            date = (TextView) v.findViewById(R.id.item_contribution_date);
+            value = (TextView) v.findViewById(R.id.item_contribution_value);
+            days = (TextView) v.findViewById(R.id.item_contribution_days);
         }
 
     }

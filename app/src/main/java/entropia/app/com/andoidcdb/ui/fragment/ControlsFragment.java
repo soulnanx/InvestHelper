@@ -17,6 +17,7 @@ import entropia.app.com.andoidcdb.callback.CallbackDialog;
 import entropia.app.com.andoidcdb.entity.Control;
 import entropia.app.com.andoidcdb.receiver.SMSReceiver;
 import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
+import entropia.app.com.andoidcdb.ui.dialog.DialogInitialContribution;
 import entropia.app.com.andoidcdb.utils.MoneyUtils;
 
 

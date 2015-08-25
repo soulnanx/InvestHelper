@@ -13,6 +13,7 @@ import java.util.List;
 import entropia.app.com.andoidcdb.db.DataBaseAdapter;
 import entropia.app.com.andoidcdb.db.DataBase;
 import entropia.app.com.andoidcdb.entity.Balance;
+import entropia.app.com.andoidcdb.entity.Contribution;
 import entropia.app.com.andoidcdb.entity.Control;
 
 /**
@@ -33,7 +34,7 @@ public class App extends Application {
 
     private void initDB() {
         DatabaseSpec database = PersistenceConfig.registerSpec(DataBase.DATABASE_VERSION);
-        database.match(Balance.class, Control.class);
+        database.match(Balance.class, Control.class, Contribution.class);
         DataBaseAdapter.getInstance(getApplicationContext());
     }
 

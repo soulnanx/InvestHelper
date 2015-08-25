@@ -7,6 +7,6 @@ public class DataBase {
 
     public static final String DATABASE_SPEC = "cabal.spec";
     public static final String DATABASE_NAME = "cabal.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
 }

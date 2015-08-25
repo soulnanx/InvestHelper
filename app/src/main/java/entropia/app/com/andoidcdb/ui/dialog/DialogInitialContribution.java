@@ -1,4 +1,4 @@
-package entropia.app.com.andoidcdb.ui.fragment;
+package entropia.app.com.andoidcdb.ui.dialog;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -119,9 +119,9 @@ public class DialogInitialContribution extends android.support.v4.app.DialogFrag
         View btnCancel;
 
         public UIHelper() {
-            this.initialContribution = (EditText) view.findViewById(R.id.dialog_initial_contribution_value);
-            this.btnOK = view.findViewById(R.id.dialog_initial_contribution_ok);
-            this.btnCancel = view.findViewById(R.id.dialog_initial_contribution_cancel);
+            this.initialContribution = (EditText) view.findViewById(R.id.dialog_other_contribution_value);
+            this.btnOK = view.findViewById(R.id.dialog_other_contribution_ok);
+            this.btnCancel = view.findViewById(R.id.dialog_other_contribution_cancel);
 
             validator = new Validator(this);
             validator.setValidationListener(this);

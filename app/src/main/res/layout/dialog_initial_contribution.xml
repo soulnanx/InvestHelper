@@ -9,11 +9,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Valor do aporte inicial"
+        android:text="@string/dialog_other_contribution"
         android:layout_marginBottom="4dp"/>
 
     <EditText
-        android:id="@+id/dialog_initial_contribution_value"
+        android:id="@+id/dialog_other_contribution_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
@@ -26,14 +26,14 @@
         android:gravity="right">
 
         <TextView
-            android:id="@+id/dialog_initial_contribution_cancel"
+            android:id="@+id/dialog_other_contribution_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
             android:padding="16dp"/>
 
         <TextView
-            android:id="@+id/dialog_initial_contribution_ok"
+            android:id="@+id/dialog_other_contribution_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ok"

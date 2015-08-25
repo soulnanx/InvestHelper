@@ -26,6 +26,7 @@ public class CustomNotification {
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setContentTitle("Invest")
                 .setContentText(message)
                 .setAutoCancel(true)

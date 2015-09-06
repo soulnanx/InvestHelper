@@ -406,32 +406,32 @@ public class LineView extends View {
 
 
     private void drawBackgroundLines(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(MyUtils.dip2px(getContext(), 1f));
-        paint.setColor(BACKGROUND_LINE_COLOR);
-        PathEffect effects = new DashPathEffect(
-                new float[]{10, 5, 10, 5}, 1);
-
-        //draw vertical lines
-        for (int i = 0; i < xCoordinateList.size(); i++) {
-            canvas.drawLine(xCoordinateList.get(i),
-                    0,
-                    xCoordinateList.get(i),
-                    mViewHeight - bottomTextTopMargin - bottomTextHeight - bottomTextDescent,
-                    paint);
-        }
-
-        //draw dotted lines
-        paint.setPathEffect(effects);
-        Path dottedPath = new Path();
-        for (int i = 0; i < yCoordinateList.size(); i++) {
-            if ((yCoordinateList.size() - 1 - i) % dataOfAGird == 0) {
-                dottedPath.moveTo(0, yCoordinateList.get(i));
-                dottedPath.lineTo(getWidth(), yCoordinateList.get(i));
-                canvas.drawPath(dottedPath, paint);
-            }
-        }
+//        Paint paint = new Paint();
+//        paint.setStyle(Paint.Style.STROKE);
+//        paint.setStrokeWidth(MyUtils.dip2px(getContext(), 1f));
+//        paint.setColor(BACKGROUND_LINE_COLOR);
+//        PathEffect effects = new DashPathEffect(
+//                new float[]{10, 5, 10, 5}, 1);
+//
+//        //draw vertical lines
+//        for (int i = 0; i < xCoordinateList.size(); i++) {
+//            canvas.drawLine(xCoordinateList.get(i),
+//                    0,
+//                    xCoordinateList.get(i),
+//                    mViewHeight - bottomTextTopMargin - bottomTextHeight - bottomTextDescent,
+//                    paint);
+//        }
+//
+//        //draw dotted lines
+//        paint.setPathEffect(effects);
+//        Path dottedPath = new Path();
+//        for (int i = 0; i < yCoordinateList.size(); i++) {
+//            if ((yCoordinateList.size() - 1 - i) % dataOfAGird == 0) {
+//                dottedPath.moveTo(0, yCoordinateList.get(i));
+//                dottedPath.lineTo(getWidth(), yCoordinateList.get(i));
+//                canvas.drawPath(dottedPath, paint);
+//            }
+//        }
         //draw bottom text
         if (bottomTextList != null) {
             for (int i = 0; i < bottomTextList.size(); i++) {
@@ -439,14 +439,14 @@ public class LineView extends View {
             }
         }
 
-        if (!drawDotLine) {
-            //draw solid lines
-            for (int i = 0; i < yCoordinateList.size(); i++) {
-                if ((yCoordinateList.size() - 1 - i) % dataOfAGird == 0) {
-                    canvas.drawLine(0, yCoordinateList.get(i), getWidth(), yCoordinateList.get(i), paint);
-                }
-            }
-        }
+//        if (!drawDotLine) {
+//            //draw solid lines
+//            for (int i = 0; i < yCoordinateList.size(); i++) {
+//                if ((yCoordinateList.size() - 1 - i) % dataOfAGird == 0) {
+//                    canvas.drawLine(0, yCoordinateList.get(i), getWidth(), yCoordinateList.get(i), paint);
+//                }
+//            }
+//        }
     }
 
     @Override

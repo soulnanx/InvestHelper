@@ -2,7 +2,7 @@
     android:layout_width="240dp"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="?android:attr/activatedBackgroundIndicator"
+    android:background="@drawable/activate_item_background"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:gravity="center_vertical"
     >
@@ -20,7 +20,7 @@
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:paddingLeft="12dp"
-            android:textColor="@color/strong_gray"
+            android:textColor="@drawable/activate_item_text"
             android:text="Travel"/>
 
 

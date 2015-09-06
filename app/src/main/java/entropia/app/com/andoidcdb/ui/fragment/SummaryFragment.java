@@ -57,14 +57,14 @@ public class SummaryFragment extends Fragment {
         lineView.setAnimation(null);
         lineView.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
 //        lineView.setBottomTextList(Balance.getLastDaysBottomChart(10));
-        lineView.setBottomTextList(Balance.getBottomValues());
+        lineView.setBottomTextList(Balance.getLastDaysBottomChart(10));
         setLine(lineView);
     }
 
     private void setLine(LineView lineView){
         ArrayList<ArrayList<Double>> dataLists = new ArrayList<>();
-//        dataLists.add(Balance.getLastDays(10));
-        dataLists.add(Balance.getChartValues());
+        dataLists.add(Balance.getLastDays(10));
+//        dataLists.add(Balance.getChartValues());
 
         lineView.setDataList(dataLists);
     }

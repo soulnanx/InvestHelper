@@ -68,7 +68,6 @@ public class DrawerLayoutMain extends ActionBarActivity {
             }
         };
 
-
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if (savedInstanceState == null) {
@@ -77,7 +76,7 @@ public class DrawerLayoutMain extends ActionBarActivity {
                 selectItem(SummaryFragment.class.getName());
                 getSupportActionBar().setTitle(R.string.summary_fragment);
             } else {
-                mListView.setItemChecked(2, true);
+                mListView.setItemChecked(3, true);
                 selectItem(ControlsFragment.class.getName());
                 getSupportActionBar().setTitle(R.string.controls_fragment);
             }

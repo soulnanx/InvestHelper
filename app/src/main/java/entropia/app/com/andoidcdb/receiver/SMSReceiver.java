@@ -29,8 +29,8 @@ public class SMSReceiver extends BroadcastReceiver {
                         msg_from = msgs[i].getOriginatingAddress();
                         String msgBody = msgs[i].getMessageBody();
 
-                        if ((msg_from.equals(SMSReader.BRADESCO_ADDRESS) || msg_from.contains(SMSReader.BRADESCO_ADDRESS)
-                                && msgBody.contains(SMSReader.FILTER_BY_INV))) {
+                        if ((msg_from.equals(SMSReader.BRADESCO_ADDRESS) || msg_from.contains(SMSReader.BRADESCO_ADDRESS))
+                                && msgBody.contains(SMSReader.FILTER_BY_INV)) {
                             CustomNotification.sendNotification(context, context.getString(R.string.push_notification_message));
                         }
                     }

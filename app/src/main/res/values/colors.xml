@@ -14,5 +14,8 @@
     <color name="medium_gray">#C8C8C8</color>
     <color name="float_button_default">#1E88E5</color>
 
+    <color name="item_selected">#63aff0</color>
+
+
     <color name="tab_selected">#24688c</color>
 </resources>

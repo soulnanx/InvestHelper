@@ -1,21 +1,19 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="windowActionModeOverlay">true</item>
-        <item name="colorAccent">@color/primary</item>
-        <item name="android:activatedBackgroundIndicator">@drawable/list_selector</item>
-
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/inverse</item>
+        <item name="colorAccent">@color/primary</item>
 
-        <item name="actionModeBackground">@color/primary</item>
+        <item name="windowActionModeOverlay">true</item>
+        <!--<item name="activatedBackgroundIndicator">@drawable/list_selector</item>-->
+        <!--<item name="actionModeBackground">@color/primary</item>-->
         <item name="actionModeSplitBackground">@android:color/white</item>
-        <item name="android:actionMenuTextColor">@android:color/white</item>
         <item name="actionMenuTextColor">@android:color/white</item>
-        <item name="drawerArrowStyle">@style/MyDrawerArrowToggle</item>
+        <item name="drawerArrowStyle">@style/ToolbarArrow</item>
     </style>
 
-    <style name="MyDrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
+    <style name="ToolbarArrow" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
         <item name="spinBars">true</item>
     </style>
@@ -31,8 +29,6 @@
     <style name="AppTheme.ActionMode" parent="Widget.AppCompat.ActionMode">
         <item name="background">?android:attr/actionModeBackground</item>
         <item name="backgroundSplit">?android:attr/actionModeSplitBackground</item>
-        <!--<item name="android:titleTextStyle">@android:style/TextAppearance.Widget.ActionMode.Title</item>-->
-        <!--<item name="android:subtitleTextStyle">@android:style/TextAppearance.Widget.ActionMode.Subtitle</item>-->
     </style>
 
 

@@ -2,6 +2,8 @@ package entropia.app.com.andoidcdb.ui.dialog;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +17,10 @@ import com.mobsandgeeks.saripaar.Validator.ValidationListener;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import entropia.app.com.andoidcdb.R;
@@ -54,7 +58,8 @@ public class DialogOtherContribution extends android.support.v4.app.DialogFragme
 
     private void setValues() {
 
-        if (contribution != null){
+        if (contribution != null) {
+            ui.date.setText(new SimpleDateFormat("dd MMM yyyy").format(new Date(contribution.getDateContribution())).toUpperCase());
             ui.value.setText(contribution.getContribution().toString());
 
             ui.showUpdateBtn();
@@ -71,6 +76,34 @@ public class DialogOtherContribution extends android.support.v4.app.DialogFragme
 
     private void setEvents() {
         ui.date.setOnClickListener(onClickDateField());
+        ui.value.addTextChangedListener(new TextWatcher() {
+
+            private String current = "";
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().matches("^\\$(\\d{1,3}(\\,\\d{3})*|(\\d+))(\\.\\d{2})?$")) {
+                    String userInput = "" + s.toString().replaceAll("[^\\d]", "");
+                    if (userInput.length() > 2) {
+                        Float in = Float.parseFloat(userInput);
+                        String first, last;
+                        first = userInput.substring(0, userInput.length() - 2);
+                        last = userInput.substring(userInput.length() - 2);
+                        ui.value.setText("$" + first + "." + last);
+                        ui.value.setSelection(ui.value.getText().length());
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
         ui.btnOK.setOnClickListener(onClickBtnOk());
         ui.btnRemove.setOnClickListener(onClickBtnRemove());
@@ -84,6 +117,7 @@ public class DialogOtherContribution extends android.support.v4.app.DialogFragme
                 new DialogDatePicker() {
                     @Override
                     public void setDate(Calendar c) {
+                        contribution.setDateContribution(c.getTimeInMillis());
                         ui.date.setText(new SimpleDateFormat("dd MMM yyyy").format(c.getTime()).toUpperCase());
                     }
 
@@ -142,18 +176,14 @@ public class DialogOtherContribution extends android.support.v4.app.DialogFragme
 
     public interface Callback {
         void ok();
+
         void remove();
+
         void cancel();
     }
 
-    private void saveOrUpdateContribution() {
-        buildContribution().saveOrUpdate();
-    }
-
     private Contribution buildContribution() {
-        Contribution contribution = new Contribution();
         contribution.setContribution(new BigDecimal(ui.value.getText().toString()));
-        // TODO set date contribution
         return contribution;
     }
 
@@ -189,7 +219,7 @@ public class DialogOtherContribution extends android.support.v4.app.DialogFragme
 
         @Override
         public void onValidationSucceeded() {
-            saveOrUpdateContribution();
+            buildContribution().save();
             callback.ok();
             DialogOtherContribution.this.dismiss();
         }
@@ -210,11 +240,11 @@ public class DialogOtherContribution extends android.support.v4.app.DialogFragme
         }
 
         public void showUpdateBtn() {
-            ((TextView)ui.btnOK).setText(R.string.dialog_update);
+            ((TextView) ui.btnOK).setText(R.string.dialog_update);
         }
 
         public void showSaveBtn() {
-            ((TextView)ui.btnOK).setText(R.string.dialog_save);
+            ((TextView) ui.btnOK).setText(R.string.dialog_save);
         }
 
         public void showRemoveBtn() {

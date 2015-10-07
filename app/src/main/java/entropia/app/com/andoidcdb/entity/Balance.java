@@ -1,6 +1,10 @@
 package entropia.app.com.andoidcdb.entity;
 
-import com.codeslap.persistence.SqlAdapter;
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -13,16 +17,25 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import entropia.app.com.andoidcdb.db.DataBaseAdapter;
+import entropia.app.com.andoidcdb.callback.CallbackSave;
 
 /**
  * Created by renan on 17/05/15.
  */
-public class Balance {
-    private long id;
+
+@Table(name = "balance")
+public class Balance extends Model{
+
+    @Column
     private String smsId;
+
+    @Column
     private long date;
+
+    @Column
     private String balance;
+
+    @Column
     private String gain;
 
     public Balance() {
@@ -33,25 +46,34 @@ public class Balance {
         return dateTime;
     }
 
-    public Balance save() {
-        return (Balance) DataBaseAdapter.getInstance().getAdapter().store(this);
-    }
 
-    public static void saveAll(List<Balance> balanceList, SqlAdapter.ProgressListener progressListener) {
-        DataBaseAdapter.getInstance().getAdapter().storeCollection(balanceList, progressListener);
-    }
-
-    public static List<Balance> getAll() {
-        return DataBaseAdapter.getInstance().getAdapter().findAll(Balance.class);
+    public static void saveAll(List<Balance> balanceList, CallbackSave callbackSave) {
+        ActiveAndroid.beginTransaction();
+        try {
+            for (int i = 0 ; i < balanceList.size() ; i++) {
+                balanceList.get(i).save();
+                callbackSave.saved(((i +1) * 100) / balanceList.size());
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        }
+        finally {
+            ActiveAndroid.endTransaction();
+        }
     }
 
     public static Balance getCurrentBalance() {
-        return new LinkedList<Balance>(Balance.getAll()).getLast();
+        List<Balance> list  = new Select().from(Balance.class).execute();
+        return new LinkedList<Balance>(list).getLast();
     }
 
-    public BigDecimal calculateTotalGain(BigDecimal initialContribution) {
-        return getBalance().subtract(initialContribution);
+    public BigDecimal calculateTotalGain(BigDecimal initialContribution, BigDecimal totalContributionSum) {
+        return getBalance().subtract(initialContribution).subtract(totalContributionSum);
     }
+
+    public static List<Balance> getAll(){
+        return new Select().from(Balance.class).execute();
+    }
+
 
     public String calculateTotalPercent(BigDecimal totalGain) {
         BigDecimal result = totalGain.multiply(new BigDecimal("100"));
@@ -96,6 +118,10 @@ public class Balance {
         LinkedList<Balance> balanceList = new LinkedList<>(Balance.getAll());
         Collections.reverse(balanceList);
 
+        if (balanceList.size() < days){
+            days = balanceList.size();
+        }
+
         for (int i = 0; i < days; i++) {
             if (balanceList.get(i).calculatePercentBigDecimal().compareTo(BigDecimal.ONE) < 0) {
                 values.add(DateTimeFormat.forPattern("dd/MM").print(balanceList.get(i).getDate()));
@@ -109,6 +135,10 @@ public class Balance {
         List<Balance> balanceList = Balance.getAll();
         ArrayList<Double> lastBalanceList = new ArrayList<>();
         Collections.reverse(balanceList);
+
+        if (balanceList.size() < days){
+            days = balanceList.size();
+        }
 
         for (int i = 0; i < days; i++) {
             if (balanceList.get(i).calculatePercentBigDecimal().compareTo(BigDecimal.ONE) < 0) {
@@ -144,14 +174,6 @@ public class Balance {
     @Override
     public int hashCode() {
         return smsId != null ? smsId.hashCode() : 0;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setDate(DateTime dateTime) {

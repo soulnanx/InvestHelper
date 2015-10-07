@@ -1,42 +1,28 @@
 package entropia.app.com.andoidcdb.entity;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
+
 import java.math.BigDecimal;
 import java.util.List;
-
-import entropia.app.com.andoidcdb.db.DataBaseAdapter;
 
 /**
  * Created by renan on 01/08/15.
  */
-public class Contribution {
 
-    private long id;
+@Table(name = "contributions")
+public class Contribution extends Model{
+
+    @Column
     private String contribution;
+
+    @Column
     private long dateContribution;
 
-    public Long save() {
-        if (DataBaseAdapter.getInstance() != null) {
-            return (Long) DataBaseAdapter.getInstance().getAdapter().store(this);
-        }
-        return null;
-    }
-
-    public int update(Contribution newControl) {
-        if (DataBaseAdapter.getInstance() != null) {
-            return DataBaseAdapter.getInstance().getAdapter().update(newControl, this);
-        }
-        return 0;
-    }
-
     public static boolean hasValue() {
-        if (DataBaseAdapter.getInstance() != null) {
-            if (DataBaseAdapter.getInstance().getAdapter().count(Contribution.class) > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return false;
+        return new Select().from(Contribution.class).execute().size() > 0;
     }
 
     public static BigDecimal  getContributionSum(){
@@ -48,38 +34,15 @@ public class Contribution {
         return sum;
     }
 
-    public void saveOrUpdate() {
-        if (DataBaseAdapter.getInstance() != null) {
-
-            if (this.getId() > 0){
-                Contribution savedContribution = getContributionById(this.getId());
-                DataBaseAdapter.getInstance().getAdapter().update(this, savedContribution);
-            } else {
-                DataBaseAdapter.getInstance().getAdapter().store(this);
-            }
-        }
-    }
-
     private Contribution getContributionById(long id) {
-        Contribution c = new Contribution();
-        c.setId(id);
-        return DataBaseAdapter.getInstance().getAdapter().findFirst(c);
+        return new Select()
+                .from(Contribution.class)
+                .where("id = ?", id)
+                .executeSingle();
     }
 
     public static List<Contribution> getAll() {
-        if (DataBaseAdapter.getInstance() != null) {
-            return DataBaseAdapter.getInstance().getAdapter().findAll(Contribution.class);
-        }
-        return null;
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        return new Select().from(Contribution.class).execute();
     }
 
     public BigDecimal getContribution() {
@@ -103,10 +66,6 @@ public class Contribution {
         this.dateContribution = dateContribution;
     }
 
-    public int delete() {
-        return DataBaseAdapter.getInstance().getAdapter().delete(this);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -114,12 +73,12 @@ public class Contribution {
 
         Contribution that = (Contribution) o;
 
-        return id == that.id;
+        return super.getId().equals(that.getId());
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return (int) (super.getId() ^ (super.getId() >>> 32));
     }
 }

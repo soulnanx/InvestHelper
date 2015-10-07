@@ -96,7 +96,7 @@ public class DialogInitialContribution extends android.support.v4.app.DialogFrag
     }
 
     private void saveControl() {
-        buildControl().saveOrUpdate();
+        buildControl().save();
     }
 
     private Control buildControl() {

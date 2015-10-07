@@ -30,11 +30,12 @@
     <string name="dialog_error_mandatory">Campo obrigatório</string>
     <string name="contributions_fragment">Aportes</string>
     <string name="push_notification_message">Novos dados sobre seus investimentos estão disponíveis</string>
-    <string name="dialog_other_contribution">Valor do aporte</string>
+    <string name="dialog_other_contribution">Quanto foi?</string>
     <string name="remove">REMOVER</string>
     <string name="dialog_update">ATUALIZAR</string>
     <string name="dialog_save">SALVAR</string>
     <string name="menu_add">Adicionar</string>
     <string name="dialog_title_other_contribution">Outros aportes</string>
-    <string name="dialog_contribution_date">data</string>
+    <string name="dialog_contribution_date">Quando foi feito?</string>
+    <string name="total_contributions_fragment">Total de aportes</string>
 </resources>

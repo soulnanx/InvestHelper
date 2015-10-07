@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/summary"
+            android:checked="true"
+            android:icon="@drawable/ic_wunderlist"
+
+            android:title="Resumo" />
+        <item
+            android:id="@+id/average_gain"
+            android:icon="@drawable/ic_calendar_today"
+            android:title="Rendimento diário" />
+        <item
+            android:id="@+id/contribution"
+            android:icon="@drawable/ic_currency_usd"
+            android:title="Aportes" />
+    </group>
+
+
+    <item android:title="Outros">
+        <menu>
+            <item
+                android:id="@+id/settings"
+                android:icon="@drawable/ic_settings"
+                android:title="Configurações" />
+            <item
+                android:id="@+id/help"
+                android:icon="@drawable/ic_help"
+                android:title="Ajuda" />
+            <item
+                android:id="@+id/about"
+                android:icon="@drawable/ic_alert_box"
+                android:title="Sobre" />
+        </menu>
+    </item>
+
+</menu>

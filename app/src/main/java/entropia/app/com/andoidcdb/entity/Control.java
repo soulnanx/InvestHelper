@@ -1,80 +1,40 @@
 package entropia.app.com.andoidcdb.entity;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
+
 import java.math.BigDecimal;
 
-import entropia.app.com.andoidcdb.db.DataBaseAdapter;
-
 /**
- * Created by renan on 01/08/15.
+ * Created by enan on 01/08/15.
  */
-public class Control {
 
-    private long id;
+@Table(name = "controls")
+public class Control extends Model {
+
+    @Column
     private String initialContribution;
+
+    @Column
     private long dateFirstContribution;
 
-    public Long save() {
-        if (DataBaseAdapter.getInstance() != null) {
-            return (Long) DataBaseAdapter.getInstance().getAdapter().store(this);
-        }
-        return null;
-    }
-
-    public int update(Control newControl) {
-        if (DataBaseAdapter.getInstance() != null) {
-            return DataBaseAdapter.getInstance().getAdapter().update(newControl, this);
-        }
-        return 0;
-    }
-
     public boolean hasValue() {
-        if (DataBaseAdapter.getInstance() != null) {
-            if (DataBaseAdapter.getInstance().getAdapter().count(Control.class) > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return false;
-    }
-
-    public void saveOrUpdate() {
-        if (DataBaseAdapter.getInstance() != null) {
-            if (DataBaseAdapter.getInstance().getAdapter().count(Control.class) > 0) {
-                Control savedControl = getControl();
-                DataBaseAdapter.getInstance().getAdapter().update(this, savedControl);
-            } else {
-                DataBaseAdapter.getInstance().getAdapter().store(this);
-            }
-        }
+        return new Select().from(Control.class).execute().size() > 0;
     }
 
     public static Control getControl() {
-        if (DataBaseAdapter.getInstance() != null) {
-            Control c = new Control();
-            c.setId(1);
-
-            return DataBaseAdapter.getInstance().getAdapter().findFirst(c);
-        }
-        return null;
+        return new Select().from(Control.class).where("id == 1").executeSingle();
     }
 
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public BigDecimal getInitialContribution() {
-        if (initialContribution == null || initialContribution.isEmpty()){
-            return BigDecimal.ZERO;
+    public static BigDecimal getInitialContribution() {
+        Control control = getControl();
+        if (control != null && (control.initialContribution != null || !control.initialContribution.isEmpty())) {
+            return new BigDecimal(control.initialContribution);
         } else {
-            return new BigDecimal(initialContribution);
+            return BigDecimal.ZERO;
         }
-
     }
 
     public void setInitialContribution(BigDecimal initialContribution) {

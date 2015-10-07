@@ -6,8 +6,9 @@
         <item name="colorAccent">@color/primary</item>
 
         <item name="windowActionModeOverlay">true</item>
-        <!--<item name="activatedBackgroundIndicator">@drawable/list_selector</item>-->
-        <!--<item name="actionModeBackground">@color/primary</item>-->
+        <!--<item name="windowBackground">cor</item>-->
+        <!--<item name="navigationBarColor">cor</item>-->
+
         <item name="actionModeSplitBackground">@android:color/white</item>
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="drawerArrowStyle">@style/ToolbarArrow</item>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="primary">#4e9be0</color>
-    <color name="inverse">#4e9be0</color>
+    <!--<color name="primary">#4e9ce0</color>-->
+    <color name="primary">#8db552</color>
+    <color name="inverse">#7ea449</color>
     <color name="primary_dark">#FEFEFE</color>
     <color name="accent">#0010B2</color>
 
@@ -18,4 +19,5 @@
 
 
     <color name="tab_selected">#24688c</color>
+    <color name="half_transparent">#66FFFFFF</color>
 </resources>

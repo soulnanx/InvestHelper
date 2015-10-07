@@ -9,11 +9,14 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.adapter.BalanceAdapter;
 import entropia.app.com.andoidcdb.app.App;
 import entropia.app.com.andoidcdb.pojo.Sms;
 import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
+import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutNew;
 import entropia.app.com.andoidcdb.utils.MoneyUtils;
 import entropia.app.com.andoidcdb.utils.SMSReader;
 
@@ -23,10 +26,7 @@ import entropia.app.com.andoidcdb.utils.SMSReader;
  */
 public class AverageGainFragment extends Fragment {
 
-    public static final int NAME_ITEM = R.string.average_gain_fragment;
-    public static final int ICON_ITEM = R.drawable.ic_my_cards_menu_;
-    public static final boolean IS_CARD_REQUIRED = false;
-
+    public static final int ID_FRAGMENT = R.id.average_gain;
     private View view;
     private App app;
     private UIHelper ui;
@@ -48,23 +48,23 @@ public class AverageGainFragment extends Fragment {
     }
 
     private void setTitle(){
-        ((DrawerLayoutMain) getActivity()).getSupportActionBar().setTitle(R.string.average_gain_fragment);
+        ((DrawerLayoutNew) getActivity()).getSupportActionBar().setTitle(R.string.average_gain_fragment);
     }
 
     private void setSubTitle(String subTitle){
-        ((DrawerLayoutMain) getActivity()).getSupportActionBar().setSubtitle(subTitle);
+        ((DrawerLayoutNew) getActivity()).getSupportActionBar().setSubtitle(subTitle);
     }
 
     private void setList() {
         ui.balanceListView.setAdapter(new BalanceAdapter(this.getActivity(), R.layout.item_gain, app.balanceList));
     }
 
-
     class UIHelper {
+        @Bind(value = R.id.balance_list)
         ListView balanceListView;
 
         UIHelper(View v){
-            balanceListView =  (ListView) v.findViewById(R.id.balance_list);
+            ButterKnife.bind(this, v);
         }
     }
 }

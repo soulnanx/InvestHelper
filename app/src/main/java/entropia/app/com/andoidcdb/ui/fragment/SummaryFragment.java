@@ -7,18 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import org.joda.time.format.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import entropia.app.com.andoidcdb.R;
-import entropia.app.com.andoidcdb.app.App;
 import entropia.app.com.andoidcdb.entity.Balance;
+import entropia.app.com.andoidcdb.entity.Contribution;
 import entropia.app.com.andoidcdb.entity.Control;
+import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutNew;
 import entropia.app.com.andoidcdb.ui.chart.LineView;
-import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
 import entropia.app.com.andoidcdb.utils.MoneyUtils;
 
 
@@ -27,6 +26,7 @@ import entropia.app.com.andoidcdb.utils.MoneyUtils;
  */
 public class SummaryFragment extends Fragment {
 
+    public static final int ID_FRAGMENT = R.id.summary;
     public static final int NAME_ITEM = R.string.summary_fragment;
     public static final int ICON_ITEM = R.drawable.ic_my_cards_menu_;
 
@@ -70,14 +70,14 @@ public class SummaryFragment extends Fragment {
     }
 
     private void init() {
-        ((DrawerLayoutMain) getActivity()).getSupportActionBar().setTitle(NAME_ITEM);
+        ((DrawerLayoutNew) getActivity()).getSupportActionBar().setTitle(NAME_ITEM);
         ui = new UIHelper(view);
         setValues();
     }
 
     private void setValues() {
         Balance lastBalance = Balance.getCurrentBalance();
-        BigDecimal totalGain = lastBalance.calculateTotalGain(control.getInitialContribution());
+        BigDecimal totalGain = lastBalance.calculateTotalGain(Control.getInitialContribution(), Contribution.getContributionSum());
 
         ui.totalBalance.setText(MoneyUtils.showAsMoney(lastBalance.getBalance().subtract(totalGain)));
         ui.totalBalancePlusGain.setText(MoneyUtils.showAsMoney(lastBalance.getBalance()));

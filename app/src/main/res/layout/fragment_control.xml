@@ -8,9 +8,9 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         card_view:cardCornerRadius="2dp"
-        card_view:contentPadding="12dp"
-        android:layout_marginBottom="10dp">
+        card_view:contentPadding="12dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,8 +22,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/fragment_control_title_contribution"
-                android:textStyle="bold"
-                android:textColor="@color/primary" />
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
 
             <!-- initail contribution-->
             <LinearLayout
@@ -94,17 +94,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/fragment_control_title_sms"
-                android:textStyle="bold"
-                android:textColor="@color/primary" />
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
 
             <!-- read sms and notification-->
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/text2"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="8"
                     android:orientation="vertical">
 
                     <TextView
@@ -116,21 +120,25 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        android:layout_width="280dp"
+                        android:layout_width="266dp"
                         android:layout_height="wrap_content"
                         android:text="@string/fragment_control_item_sms"
                         android:textColor="@color/strong_gray" />
                 </LinearLayout>
 
-                <Switch
-                    android:id="@+id/fragment_control_switch_receive_sms_notification"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-            </RelativeLayout>
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+                    <Switch
+                        android:id="@+id/fragment_control_switch_receive_sms_notification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
 
 
         </LinearLayout>

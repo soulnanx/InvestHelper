@@ -5,8 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
-import com.codeslap.persistence.SqlAdapter;
-
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
@@ -16,6 +14,7 @@ import java.util.List;
 
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.app.App;
+import entropia.app.com.andoidcdb.callback.CallbackSave;
 import entropia.app.com.andoidcdb.entity.Balance;
 import entropia.app.com.andoidcdb.pojo.Sms;
 import entropia.app.com.andoidcdb.utils.NavigationUtils;
@@ -38,7 +37,6 @@ public class SplashScreenActivity extends ActionBarActivity {
     private void init() {
         app = (App) getApplication();
         smsList = new SMSReader().getAllSms(this, SMSReader.BRADESCO_ADDRESS);
-
     }
 
     @Override
@@ -50,7 +48,8 @@ public class SplashScreenActivity extends ActionBarActivity {
             @Override
             protected void onPreExecute() {
                 dialog = new ProgressDialog(SplashScreenActivity.this);
-                dialog.setMessage("Lendo sms");
+                dialog.setTitle("Buscando sms");
+                dialog.setMessage("aguarde...");
                 dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 dialog.show();
             }
@@ -61,7 +60,6 @@ public class SplashScreenActivity extends ActionBarActivity {
                 return null;
             }
         }.execute();
-
     }
 
     private void calculateValues() {
@@ -102,7 +100,7 @@ public class SplashScreenActivity extends ActionBarActivity {
 
         if (newBalancesToSave.isEmpty()){
             dialog.dismiss();
-            NavigationUtils.navigate(this, DrawerLayoutMain.class, true);
+            NavigationUtils.navigate(this, DrawerLayoutNew.class, true);
         } else {
             Balance.saveAll(newBalancesToSave, callbackSaveAllBalances());
         }
@@ -118,15 +116,15 @@ public class SplashScreenActivity extends ActionBarActivity {
         return newBalance;
     }
 
-    private SqlAdapter.ProgressListener callbackSaveAllBalances() {
-        return new SqlAdapter.ProgressListener() {
+    private CallbackSave callbackSaveAllBalances() {
+        return new CallbackSave() {
             @Override
-            public void onProgressChange(final int percentage) {
+            public void saved(int percentage) {
                 updateProgress(percentage);
 
                 if (percentage >= 100) {
                     dialog.dismiss();
-                    NavigationUtils.navigate(SplashScreenActivity.this, DrawerLayoutMain.class, true);
+                    NavigationUtils.navigate(SplashScreenActivity.this, DrawerLayoutNew.class, true);
                 }
             }
         };

@@ -12,7 +12,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:src="@drawable/header"
+            android:src="@drawable/header_green"
             android:scaleType="fitStart"/>
 
         <TextView

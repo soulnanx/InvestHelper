@@ -13,12 +13,41 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         tools:replace="icon, label" >
+
+        <meta-data android:name="AA_DB_NAME" android:value="database.db" />
+        <meta-data android:name="AA_DB_VERSION" android:value="1" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="entropia.app.com.andoidcdb.entity.Balance,
+            entropia.app.com.andoidcdb.entity.Contribution,
+            entropia.app.com.andoidcdb.entity.Control" />
+
+        <receiver
+            android:name=".widget.LastGainWidget"
+            android:label="Últimos Rendimentos">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:resource="@xml/last_gain_widget"
+                android:name="android.appwidget.provider"/>
+        </receiver>
+
         <activity
             android:name=".ui.activity.DrawerLayoutMain"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+
+        <activity
+            android:name=".ui.activity.DrawerLayoutNew"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+
+        </activity>
+
+
         <activity
             android:name=".ui.activity.SplashScreenActivity"
             android:label="@string/app_name"
@@ -26,7 +55,6 @@
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

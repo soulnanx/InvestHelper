@@ -11,12 +11,15 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import entropia.app.com.andoidcdb.R;
 import entropia.app.com.andoidcdb.app.App;
 import entropia.app.com.andoidcdb.callback.CallbackDialog;
 import entropia.app.com.andoidcdb.entity.Control;
 import entropia.app.com.andoidcdb.receiver.SMSReceiver;
 import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutMain;
+import entropia.app.com.andoidcdb.ui.activity.DrawerLayoutNew;
 import entropia.app.com.andoidcdb.ui.dialog.DialogInitialContribution;
 import entropia.app.com.andoidcdb.utils.MoneyUtils;
 
@@ -28,7 +31,7 @@ public class ControlsFragment extends Fragment {
 
     public static final int NAME_ITEM = R.string.controls_fragment;
     public static final int ICON_ITEM = R.drawable.ic_my_cards_menu_;
-    public static final boolean IS_CARD_REQUIRED = false;
+    public static final int ID_FRAGMENT = R.id.settings;
 
     private View view;
     private App app;
@@ -57,7 +60,7 @@ public class ControlsFragment extends Fragment {
     }
 
     private void init() {
-        ((DrawerLayoutMain) getActivity()).getSupportActionBar().setTitle(R.string.controls_fragment);
+        ((DrawerLayoutNew) getActivity()).getSupportActionBar().setTitle(R.string.controls_fragment);
         app = (App) getActivity().getApplication();
         ui = new UIHelper(view);
         setEvents();
@@ -134,14 +137,17 @@ public class ControlsFragment extends Fragment {
     }
 
     class UIHelper {
+        @Bind(value = R.id.fragment_control_initial_contribution)
         TextView initialContribution;
+
+        @Bind(value = R.id.fragment_control_content_initial_contribution)
         View contentInitialContribution;
+
+        @Bind(value = R.id.fragment_control_switch_receive_sms_notification)
         Switch receiveSMS;
 
         UIHelper(View v){
-            contentInitialContribution = v.findViewById(R.id.fragment_control_content_initial_contribution);
-            initialContribution = (TextView)v.findViewById(R.id.fragment_control_initial_contribution);
-            receiveSMS = (Switch) v.findViewById(R.id.fragment_control_switch_receive_sms_notification);
+            ButterKnife.bind(this, v);
         }
     }
 }
